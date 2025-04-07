@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Values</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>✍️ Enter Your Values</h1>
+    <form action="{{ url_for('confirm_values') }}" method="POST">
+        {% for i in range(count) %}
+            {% if choice == 'x' or choice == 'both' %}
+                <label>X{{ i+1 }}:</label>
+                <input type="number" name="x{{ i }}" step="any" required><br>
+            {% endif %}
+            {% if choice == 'y' or choice == 'both' %}
+                <label>Y{{ i+1 }}:</label>
+                <input type="number" name="y{{ i }}" step="any" required><br>
+            {% endif %}
+            <br>
+        {% endfor %}
+        <button type="submit">✅ Confirm</button>
+    </form>
+</body>
+</html>

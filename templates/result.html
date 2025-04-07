@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deviation Table Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tfoot td {
+            font-weight: bold;
+            background-color: #d1ecf1;
+        }
+    </style>
+</head>
+<body>
+    <h1>📈 Deviation Table</h1>
+    <table>
+        <thead>
+            <tr>
+                {% if choice in ['x', 'both'] %}
+                    <th>X</th>
+                    <th>X - X̄</th>
+                    <th>(X - X̄)²</th>
+                {% endif %}
+                {% if choice in ['y', 'both'] %}
+                    <th>Y</th>
+                    <th>Y - Ȳ</th>
+                    <th>(Y - Ȳ)²</th>
+                {% endif %}
+                {% if choice == 'both' %}
+                    <th>(X - X̄)(Y - Ȳ)</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table %}
+                <tr>
+                    {% if choice in ['x', 'both'] %}
+                        <td>{{ row.xi }}</td>
+                        <td>{{ '%.2f' % row.x_dev }}</td>
+                        <td>{{ '%.2f' % row.x_dev2 }}</td>
+                    {% endif %}
+                    {% if choice in ['y', 'both'] %}
+                        <td>{{ row.yi }}</td>
+                        <td>{{ '%.2f' % row.y_dev }}</td>
+                        <td>{{ '%.2f' % row.y_dev2 }}</td>
+                    {% endif %}
+                    {% if choice == 'both' %}
+                        <td>{{ '%.2f' % row.xy_dev }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                {% if choice in ['x', 'both'] %}
+                    <td><b>{{ totals.xi }}</b></td>
+                    <td><b>{{ '%.2f' % totals.x_dev }}</b></td>
+                    <td><b>{{ '%.2f' % totals.x_dev2 }}</b></td>
+                {% endif %}
+                {% if choice in ['y', 'both'] %}
+                    <td><b>{{ totals.yi }}</b></td>
+                    <td><b>{{ '%.2f' % totals.y_dev }}</b></td>
+                    <td><b>{{ '%.2f' % totals.y_dev2 }}</b></td>
+                {% endif %}
+                {% if choice == 'both' %}
+                    <td><b>{{ '%.2f' % totals.xy_dev }}</b></td>
+                {% endif %}
+            </tr>
+        </tfoot>
+    </table>
+
+    <form action="{{ url_for('index') }}">
+        <button type="submit">🔄 Generate New Table</button>
+    </form>
+</body>
+</html>

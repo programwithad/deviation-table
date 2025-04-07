@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Values</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🔍 Confirm Your Inputs</h1>
+
+    {% if x_values %}
+        <h3>X Values:</h3>
+        <p>{{ x_values }}</p>
+    {% endif %}
+
+    {% if y_values %}
+        <h3>Y Values:</h3>
+        <p>{{ y_values }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('index') }}">
+        <button type="submit">🔁 Re-enter Values</button>
+    </form>
+    <br>
+    <form action="{{ url_for('result') }}">
+        <button type="submit">📊 Generate Deviation Table</button>
+    </form>
+</body>
+</html>
