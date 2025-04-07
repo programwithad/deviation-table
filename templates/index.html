@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deviation Table Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>📊 Deviation Table Generator</h1>
+    <form action="{{ url_for('input_values') }}" method="POST">
+        <h3>Select Data Type:</h3>
+        <label><input type="radio" name="choice" value="x" required> Only X values</label><br>
+        <label><input type="radio" name="choice" value="y"> Only Y values</label><br>
+        <label><input type="radio" name="choice" value="both"> Both X and Y values</label><br><br>
+
+        <label>How many values do you want to enter?</label><br>
+        <input type="number" name="count" min="1" required><br><br>
+
+        <button type="submit">➡️ Next</button>
+    </form>
+
+    <footer>
+        <img src="{{ url_for('static', filename='me.jpg') }}" alt="Your Photo">
+        <p>Developer <strong>Aditya Kumar</strong></p>
+        <a href="https://www.linkedin.com/in/adityakr-dev/" target="_blank">🔗 Connect on LinkedIn</a>
+    </footer>
+</body>
+</html>
